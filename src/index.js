@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Item, AppContainer } from './components';
 import Carousel from './Carousel';
+import './style.css';
 
 const projects = [
 	{
@@ -45,31 +46,23 @@ function Project({ name, content, reversed, position }) {
 	return (
 		<div
 			style={{
-				display: 'flex',
-				flexFlow: 'column',
-				position: 'absolute',
-				width: '25%',
-				padding: 20,
 				...position,
 			}}
+			className='item'
 		>
 			<div
 				style={{
-					color: '#FBC80F',
-					fontSize: 30,
 					textAlign: reversed ? 'right' : 'left',
-					margin: '10px 0px',
-					fontWeight: 600,
-					cursor: 'pointer',
 					order: reversed ? 2 : 1,
 				}}
+				className='name'
 				onMouseEnter={() => setShow(true)}
 				onMouseLeave={() => setShow(false)}
 				onClick={() => setStabelShow(!stableShow)}
 			>
 				{name}
 			</div>
-			<div style={{ color: '#E3B91A', textAlign: 'left', order: reversed ? 1 : 2 }}>
+			<div style={{ order: reversed ? 1 : 2 }} className='content'>
 				{(show || stableShow) && content}
 			</div>
 		</div>
@@ -89,7 +82,7 @@ function App() {
 								<Project
 									name={projectName}
 									content={projectContent}
-									position={{ top: 0, left: 30 }}
+									position={{ top: 0, left: 0 }}
 								/>
 								<Project
 									name='About Us'
