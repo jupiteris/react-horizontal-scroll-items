@@ -25,9 +25,13 @@ const Carousel = (props) => {
 	});
 
 	return (
-		<div {...handlers}>
+		<div {...handlers} style={{ height: '100%' }}>
 			<Wrapper>
-				<ReactScrollWheelHandler upHandler={() => slide(PREV)} downHandler={() => slide(NEXT)}>
+				<ReactScrollWheelHandler
+					upHandler={() => slide(PREV)}
+					downHandler={() => slide(NEXT)}
+					style={{ height: '100%' }}
+				>
 					<CarouselContainer dir={state.dir} sliding={state.sliding}>
 						{React.Children.map(props.children, (child, index) => (
 							<CarouselSlot
