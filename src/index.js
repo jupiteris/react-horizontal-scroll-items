@@ -42,6 +42,26 @@ const projects = [
 function Project({ name, content, reversed, position }) {
 	const [show, setShow] = useState(false);
 	const [stableShow, setStabelShow] = useState(false);
+	const stopCrashEvent = (event) => {
+		event.stopPropagation();
+		event.preventDefault();
+	};
+
+	const handleShow = (e) => {
+		stopCrashEvent(e);
+		setShow(true);
+	};
+
+	const handleClose = (e) => {
+		stopCrashEvent(e);
+		setShow(false);
+	};
+
+	const handleStableShow = (e) => {
+		stopCrashEvent(e);
+		setStabelShow(!stableShow);
+		setShow(false);
+	};
 
 	return (
 		<div
@@ -56,9 +76,9 @@ function Project({ name, content, reversed, position }) {
 					order: reversed ? 2 : 1,
 				}}
 				className='name'
-				onMouseEnter={() => setShow(true)}
-				onMouseLeave={() => setShow(false)}
-				onClick={() => setStabelShow(!stableShow)}
+				onMouseEnter={handleShow}
+				onMouseLeave={handleClose}
+				onClick={handleStableShow}
 			>
 				{name}
 			</div>

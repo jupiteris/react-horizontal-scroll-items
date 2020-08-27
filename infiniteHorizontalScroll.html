@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>infinte horizontal scroll</title>
+	</head>
+	<style type="text/css">
+		body {
+			overflow-x: hidden;
+			color: #fff;
+			font-family: Helvetica;
+			font-size: 200%;
+		}
+		#page {
+			overflow: hidden;
+			white-space: nowrap;
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #ccc;
+			display: flex;
+			flex-wrap: no-wrap;
+		}
+		.pane {
+			flex: 0 0 100vw;
+			height: 100vh;
+			display: flex;
+			position: relative;
+			align-items: center;
+			justify-content: center;
+			background-color: #45ccff;
+		}
+
+		.pane:nth-child(4n + 2) {
+			background-color: #49e83e;
+		}
+		.pane:nth-child(4n + 3) {
+			background-color: #edde05;
+		}
+		.pane:nth-child(4n + 4) {
+			background-color: #e84b30;
+		}
+		.pane:last-child {
+			background-color: #45ccff;
+		}
+	</style>
+	<body>
+		<div id="page">
+			<div class="pane"><div>Looping Horizontal Scroll</div></div>
+			<div class="pane"><div>2</div></div>
+			<div class="pane"><div>3</div></div>
+			<div class="pane"><div>4</div></div>
+			<div class="pane"><div>5</div></div>
+			<div class="pane"><div>Last</div></div>
+			<div class="pane"><div>Looping Horizontal Scroll</div></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var page = document.getElementById('page');
+		var last_pane = page.getElementsByClassName('pane');
+		last_pane = last_pane[last_pane.length - 1];
+		var dummy_x = null;
+		let buf = null;
+		let count = 0;
+
+		window.onscroll = async function () {
+			// Horizontal Scroll.
+			var y = document.body.getBoundingClientRect().top;
+			page.scrollLeft = -y;
+			// Looping Scroll.
+			// if (buf <= window.scrollY) {
+			// 	count++;
+			// 	console.log(count);
+			// } else {
+			// 	count--;
+			// 	console.log(count);
+			// }
+			// page.scrollLeft = 1180 * count;
+			// buf = window.scrollY;
+
+			var diff = window.scrollY - dummy_x;
+			if (diff > 0) {
+				window.scrollTo(0, diff);
+			} else if (window.scrollY == 0) {
+				window.scrollTo(0, dummy_x);
+			}
+		};
+		// Adjust the body height if the window resizes.
+		window.onresize = resize;
+		// Initial resize.
+		resize();
+
+		// Reset window-based vars
+		function resize() {
+			var w = page.scrollWidth - window.innerWidth + window.innerHeight;
+			document.body.style.height = w + 'px';
+
+			dummy_x = last_pane.getBoundingClientRect().left + window.scrollY;
+		}
+	</script>
+</html>
