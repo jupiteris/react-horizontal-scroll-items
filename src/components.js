@@ -8,6 +8,8 @@ export const Item = styled.div`
 	text-align: center;
 	height: 100%;
 	background-image: ${(props) => `url(${props.img})`};
+	background-position: center center;
+	background-repeat: no-repeat;
 	background-size: cover;
 `;
 

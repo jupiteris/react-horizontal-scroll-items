@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { Item, AppContainer } from './components';
 import Carousel from './Carousel';
@@ -6,42 +6,66 @@ import './style.css';
 
 const projects = [
 	{
-		backgroundImg: 'https://unsplash.it/475/205',
-		projectName: 'Project 1',
-		aboutUs:
-			"The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
-		projectContent:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+		backgroundImg: 'img/1-Skiljelinjer.jpg',
+		projectName: 'Skiljelinjer',
+		projectContent: `
+			<b style="font-style: italic;">Ongoing</b><br/><br/>
+			Lines of demarcation - architectural research project in collaboration with curator Sebastian Dahlqvist. 
+			Through a collaborative design tool that actualizes only the controversial proposals the project explores agonism, 
+			political lack of consensus, as a decision-making principle in collaborative design. 
+			Different architectural interventions are designed with the tool,
+			and a final design will be realized as a built project in spring 2021.<br/><br/>
+			<b style="font-style: italic;">“All forms of consensus are by necessity based on acts of exclusion.” </b><br/>
+			Chantal Mouffe
+		`,
 	},
 	{
-		backgroundImg: 'https://unsplash.it/476/205',
-		projectName: 'Project 2',
-		aboutUs:
-			"The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
-		projectContent:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+		backgroundImg: 'img/2-Silurus.jpg',
+		projectName: 'Silurus',
+		projectContent: `
+			<b style="font-style: italic;">27 November 2020</b><br/><br/>
+			An interactive augmented reality experience commissioned by Naturum Vattenriket in Kristianstad, Sweden. 
+			The visitors to the museum are greeted by virtual animals, which teach them about the flora and fauna 
+			and bring them out into the nature reserve. The animals have their own stories and dramas, 
+			and invites in the visitors into an experience that is equal parts educative game and animated movie.
+		`,
 	},
 	{
-		backgroundImg: 'https://unsplash.it/477/205',
-		projectName: 'Project 3',
-		aboutUs:
-			"The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
-		projectContent:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+		backgroundImg: 'img/3-AWordIsPerched.jpg',
+		projectName: 'A word is perched',
+		projectContent: `
+			<b style="font-style: italic;">Upcoming</b><br/><br/>
+			Augmented reality social media network that aim to subvert the linguistic production of meaning 
+			within digital communication. By applying real world physics to the written messages the ownership is expanded 
+			and the structure of the text is reshaped, introducing a new spatial uncertainty in an otherwise rigid space.
+		`,
 	},
 	{
-		backgroundImg: 'https://unsplash.it/478/205',
-		projectName: 'Project 4',
-		aboutUs:
-			"The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
-		projectContent:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+		backgroundImg: 'img/4-ApparatusLudens.jpg',
+		projectName: 'Apparatus Ludens',
+		projectContent: `
+			<b style="font-style: italic;">Upcoming</b><br/><br/>
+			Online open-world game exploring what happens in virtual worlds after we humans leave. 
+			Fragments of previous visitors are jumbled with your online footprint,
+			your personalized advertisements mixed with those of other players, 
+			your recommended videos slowly infiltrating the textures and materials of the world. 
+			Instagram posts of strangers glitching through the gameplay, while the landscape slowly deteriorates 
+			and disappears into noise.
+		`,
 	},
 ];
+
+const aboutUs = `
+	<a href="mailto:studio@untold.garden" target="_top">studio@untold.garden</a><br/><br/>
+	Untold Garden builds tools to explore intersections and feedback loops between virtual and physical worlds, 
+	through mixed reality interfaces and processes for decentralized decision-making. 
+	We are a design collective by Max Čelar and Jakob Skote. 
+`;
 
 function Project({ name, content, reversed, position }) {
 	const [show, setShow] = useState(false);
 	const [stableShow, setStabelShow] = useState(false);
+	const contentRef = useRef();
 	const stopCrashEvent = (event) => {
 		event.stopPropagation();
 		event.preventDefault();
@@ -82,8 +106,12 @@ function Project({ name, content, reversed, position }) {
 			>
 				{name}
 			</div>
-			<div style={{ order: reversed ? 1 : 2 }} className='content'>
-				{(show || stableShow) && content}
+			<div
+				style={{ order: reversed ? 1 : 2 }}
+				className='content'
+				dangerouslySetInnerHTML={{ __html: show || stableShow ? content : '' }}
+			>
+				{/* {(show || stableShow) && content} */}
 			</div>
 		</div>
 	);
@@ -96,7 +124,7 @@ function App() {
 				{projects &&
 					projects.length &&
 					projects.map((p, index) => {
-						const { backgroundImg, projectContent, projectName, aboutUs } = p;
+						const { backgroundImg, projectContent, projectName } = p;
 						return (
 							<Item img={backgroundImg} key={index}>
 								<Project
@@ -105,7 +133,7 @@ function App() {
 									position={{ top: 0, left: 0 }}
 								/>
 								<Project
-									name='About Us'
+									name='Untold Garden'
 									content={aboutUs}
 									position={{ bottom: 0, right: 0 }}
 									reversed
