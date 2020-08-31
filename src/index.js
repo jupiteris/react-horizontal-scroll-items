@@ -65,7 +65,6 @@ const aboutUs = `
 function Project({ name, content, reversed, position }) {
 	const [show, setShow] = useState(false);
 	const [stableShow, setStabelShow] = useState(false);
-	const contentRef = useRef();
 	const stopCrashEvent = (event) => {
 		event.stopPropagation();
 		event.preventDefault();
@@ -88,17 +87,9 @@ function Project({ name, content, reversed, position }) {
 	};
 
 	return (
-		<div
-			style={{
-				...position,
-			}}
-			className='item'
-		>
+		<div style={{ ...position }} className='item'>
 			<div
-				style={{
-					textAlign: reversed ? 'right' : 'left',
-					order: reversed ? 2 : 1,
-				}}
+				style={{ textAlign: reversed ? 'right' : 'left', order: reversed ? 2 : 1 }}
 				className='name'
 				onMouseEnter={handleShow}
 				onMouseLeave={handleClose}
@@ -110,9 +101,7 @@ function Project({ name, content, reversed, position }) {
 				style={{ order: reversed ? 1 : 2 }}
 				className='content'
 				dangerouslySetInnerHTML={{ __html: show || stableShow ? content : '' }}
-			>
-				{/* {(show || stableShow) && content} */}
-			</div>
+			></div>
 		</div>
 	);
 }

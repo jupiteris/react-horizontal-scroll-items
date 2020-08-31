@@ -25,6 +25,11 @@ body,
 	margin: 10px 0px;
 }
 
+.item a {
+	color: #d4df8b;
+	text-decoration: none;
+}
+
 @media only screen and (max-width: 568px) {
 	.item {
 		width: 80%;
