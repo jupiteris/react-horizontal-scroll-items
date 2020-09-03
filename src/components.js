@@ -4,6 +4,7 @@ export const NEXT = 'NEXT';
 export const PREV = 'PREV';
 
 export const Item = styled.div`
+	position: relative;
 	text-align: center;
 	height: 100%;
 	background-image: ${(props) => `url(${props.desktopImg})`};
@@ -27,7 +28,7 @@ export const CarouselContainer = styled.div`
 `;
 
 export const Wrapper = styled.div`
-	position: relative;
+	// position: relative;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
