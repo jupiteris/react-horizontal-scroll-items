@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import { Wrapper, CarouselContainer, CarouselSlot, PREV, NEXT } from './components';
+import { Wrapper, CarouselContainer, CarouselSlot, BtnWrapper, PREV, NEXT } from './components';
 import ReactScrollWheelHandler from 'react-scroll-wheel-handler';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 const getOrder = ({ index, pos, numItems }) => {
 	return index - pos < 0 ? numItems - Math.abs(index - pos) : index - pos;
@@ -9,8 +11,9 @@ const getOrder = ({ index, pos, numItems }) => {
 const initialState = { pos: 0, sliding: false, dir: NEXT };
 
 const Carousel = (props) => {
-	const [state, dispatch] = React.useReducer(reducer, initialState);
+	const [state, dispatch] = useReducer(reducer, initialState);
 	const numItems = React.Children.count(props.children);
+
 	const slide = (dir) => {
 		dispatch({ type: dir, numItems });
 		setTimeout(() => {
@@ -27,6 +30,7 @@ const Carousel = (props) => {
 	return (
 		<div {...handlers} style={{ height: '100%' }}>
 			<Wrapper>
+				{/* listen the mouse scroll event */}
 				<ReactScrollWheelHandler
 					upHandler={() => slide(PREV)}
 					downHandler={() => slide(NEXT)}
@@ -42,6 +46,12 @@ const Carousel = (props) => {
 							</CarouselSlot>
 						))}
 					</CarouselContainer>
+					<BtnWrapper style={{ left: 0 }}>
+						<ArrowBackIosIcon onClick={() => slide(PREV)} />
+					</BtnWrapper>
+					<BtnWrapper style={{ right: 0 }}>
+						<ArrowForwardIosIcon onClick={() => slide(NEXT)} />
+					</BtnWrapper>
 				</ReactScrollWheelHandler>
 			</Wrapper>
 		</div>

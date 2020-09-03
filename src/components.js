@@ -7,10 +7,34 @@ export const Item = styled.div`
 	position: relative;
 	text-align: center;
 	height: 100%;
-	background-image: ${(props) => `url(${props.img})`};
+	background-image: ${(props) => `url(${props.desktopImg})`};
+	@media (max-width: 568px) {
+		background-image: ${(props) => `url(${props.mobileImg})`};
+	}
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
+`;
+
+export const BtnWrapper = styled.div`
+	position: absolute;
+	width: 60px;
+	top: 25%;
+	height: 50%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	svg {
+		color: #ffe600;
+		height: 40px;
+		width: 40px;
+		opacity: 0.3;
+	}
+	:hover {
+		svg {
+			opacity: 1;
+		}
+	}
 `;
 
 export const CarouselContainer = styled.div`

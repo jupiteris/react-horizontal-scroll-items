@@ -1,14 +1,30 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Item, AppContainer } from './components';
 import Carousel from './Carousel';
 import './style.css';
 
+// data used for each page.
 const projects = [
 	{
-		backgroundImg: 'img/1-Skiljelinjer.jpg',
-		projectName: 'Skiljelinjer',
-		projectContent: `
+		desktopImg: 'img/4-ApparatusLudens.jpg',
+		mobileImg: 'img/4-ApparatusLudens-Mobile.jpg',
+		header: 'Apparatus Ludens',
+		text: `
+			<b style="font-style: italic;">Upcoming</b><br/><br/>
+			Online open-world game exploring what happens in virtual worlds after we humans leave. 
+			Fragments of previous visitors are jumbled with your online footprint,
+			your personalized advertisements mixed with those of other players, 
+			your recommended videos slowly infiltrating the textures and materials of the world. 
+			Instagram posts of strangers glitching through the gameplay, while the landscape slowly deteriorates 
+			and disappears into noise.
+		`,
+	},
+	{
+		desktopImg: 'img/1-Skiljelinjer.jpg',
+		mobileImg: 'img/1-Skiljelinjer-Mobile.jpg',
+		header: 'Skiljelinjer',
+		text: `
 			<b style="font-style: italic;">Ongoing</b><br/><br/>
 			Lines of demarcation - architectural research project in collaboration with curator Sebastian Dahlqvist. 
 			Through a collaborative design tool that actualizes only the controversial proposals the project explores agonism, 
@@ -20,9 +36,10 @@ const projects = [
 		`,
 	},
 	{
-		backgroundImg: 'img/2-Silurus.jpg',
-		projectName: 'Silurus',
-		projectContent: `
+		desktopImg: 'img/2-Silurus.jpg',
+		mobileImg: 'img/2-Silurus-Mobile.jpg',
+		header: 'Silurus',
+		text: `
 			<b style="font-style: italic;">27 November 2020</b><br/><br/>
 			An interactive augmented reality experience commissioned by Naturum Vattenriket in Kristianstad, Sweden. 
 			The visitors to the museum are greeted by virtual animals, which teach them about the flora and fauna 
@@ -31,26 +48,14 @@ const projects = [
 		`,
 	},
 	{
-		backgroundImg: 'img/3-AWordIsPerched.jpg',
-		projectName: 'A word is perched',
-		projectContent: `
+		desktopImg: 'img/3-AWordIsPerched.jpg',
+		mobileImg: 'img/3-AWordIsPerched-Mobile.jpg',
+		header: 'A word is perched',
+		text: `
 			<b style="font-style: italic;">Upcoming</b><br/><br/>
 			Augmented reality social media network that aim to subvert the linguistic production of meaning 
 			within digital communication. By applying real world physics to the written messages the ownership is expanded 
 			and the structure of the text is reshaped, introducing a new spatial uncertainty in an otherwise rigid space.
-		`,
-	},
-	{
-		backgroundImg: 'img/4-ApparatusLudens.jpg',
-		projectName: 'Apparatus Ludens',
-		projectContent: `
-			<b style="font-style: italic;">Upcoming</b><br/><br/>
-			Online open-world game exploring what happens in virtual worlds after we humans leave. 
-			Fragments of previous visitors are jumbled with your online footprint,
-			your personalized advertisements mixed with those of other players, 
-			your recommended videos slowly infiltrating the textures and materials of the world. 
-			Instagram posts of strangers glitching through the gameplay, while the landscape slowly deteriorates 
-			and disappears into noise.
 		`,
 	},
 ];
@@ -63,28 +68,29 @@ const aboutUs = `
 `;
 
 function Project({ name, content, reversed, position }) {
+	// variable used for header hovering
 	const [show, setShow] = useState(false);
-	const [stableShow, setStabelShow] = useState(false);
 	const stopCrashEvent = (event) => {
 		event.stopPropagation();
 		event.preventDefault();
 	};
-
+	// handle when mouse enter the header
 	const handleShow = (e) => {
 		stopCrashEvent(e);
 		setShow(true);
 	};
-
+	// handle when mouse leave the header
 	const handleClose = (e) => {
 		stopCrashEvent(e);
 		setShow(false);
 	};
 
-	const handleStableShow = (e) => {
-		stopCrashEvent(e);
-		setStabelShow(!stableShow);
-		setShow(false);
-	};
+	// const [stableShow, setStabelShow] = useState(false);
+	// const handleStableShow = (e) => {
+	// 	stopCrashEvent(e);
+	// 	setStabelShow(!stableShow);
+	// 	setShow(false);
+	// };
 
 	return (
 		<div style={{ ...position }} className='item'>
@@ -93,14 +99,16 @@ function Project({ name, content, reversed, position }) {
 				className='name'
 				onMouseEnter={handleShow}
 				onMouseLeave={handleClose}
-				onClick={handleStableShow}
+				// onClick={handleStableShow}
 			>
 				{name}
 			</div>
 			<div
 				style={{ order: reversed ? 1 : 2 }}
 				className='content'
-				dangerouslySetInnerHTML={{ __html: show || stableShow ? content : '' }}
+				onMouseEnter={handleShow}
+				onMouseLeave={handleClose}
+				dangerouslySetInnerHTML={{ __html: show ? content : '' }}
 			></div>
 		</div>
 	);
@@ -113,14 +121,10 @@ function App() {
 				{projects &&
 					projects.length &&
 					projects.map((p, index) => {
-						const { backgroundImg, projectContent, projectName } = p;
+						const { desktopImg, mobileImg, text, header } = p;
 						return (
-							<Item img={backgroundImg} key={index}>
-								<Project
-									name={projectName}
-									content={projectContent}
-									position={{ top: 0, left: 0 }}
-								/>
+							<Item desktopImg={desktopImg} mobileImg={mobileImg} key={index}>
+								<Project name={header} content={text} position={{ top: 0, left: 0 }} />
 								<Project
 									name='Untold Garden'
 									content={aboutUs}
