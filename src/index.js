@@ -124,7 +124,9 @@ function App() {
 						const { desktopImg, mobileImg, text, header } = p;
 						return (
 							<Item desktopImg={desktopImg} mobileImg={mobileImg} key={index}>
+								{/* top header */}
 								<Project name={header} content={text} position={{ top: 0, left: 0 }} />
+								{/* bottom header */}
 								<Project
 									name='Untold Garden'
 									content={aboutUs}

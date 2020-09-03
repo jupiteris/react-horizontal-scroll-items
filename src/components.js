@@ -4,7 +4,6 @@ export const NEXT = 'NEXT';
 export const PREV = 'PREV';
 
 export const Item = styled.div`
-	position: relative;
 	text-align: center;
 	height: 100%;
 	background-image: ${(props) => `url(${props.desktopImg})`};
@@ -14,35 +13,6 @@ export const Item = styled.div`
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
-`;
-
-export const BtnWrapper = styled.div`
-	position: absolute;
-	width: 40px;
-	top: 25%;
-	height: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	svg {
-		color: #ffe600;
-		height: 40px;
-		width: 40px;
-		opacity: 0;
-	}
-	:hover {
-		svg {
-			opacity: 0.5;
-			:hover {
-				opacity: 1;
-			}
-		}
-	}
-	@media (max-width: 568px) {
-		svg {
-			opacity: 0;
-		}
-	}
 `;
 
 export const CarouselContainer = styled.div`
@@ -57,10 +27,32 @@ export const CarouselContainer = styled.div`
 `;
 
 export const Wrapper = styled.div`
+	position: relative;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
 	box-shadow: 5px 5px 20px 7px rgba(168, 168, 168, 1);
+	:hover {
+		svg {
+			opacity: ${(props) => (props.move ? 0.5 : 0)};
+		}
+	}
+	svg {
+		position: absolute;
+		top: 50%;
+		color: #ffe600;
+		height: 40px;
+		width: 40px;
+		opacity: 0;
+		:hover {
+			opacity: 1;
+		}
+	}
+	@media (max-width: 568px) {
+		svg {
+			opacity: 0;
+		}
+	}
 `;
 
 export const CarouselSlot = styled.div`

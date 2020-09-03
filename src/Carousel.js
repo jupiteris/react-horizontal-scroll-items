@@ -1,6 +1,6 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import { Wrapper, CarouselContainer, CarouselSlot, BtnWrapper, PREV, NEXT } from './components';
+import { Wrapper, CarouselContainer, CarouselSlot, PREV, NEXT } from './components';
 import ReactScrollWheelHandler from 'react-scroll-wheel-handler';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
@@ -12,6 +12,7 @@ const initialState = { pos: 0, sliding: false, dir: NEXT };
 
 const Carousel = (props) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
+	const [move, setMove] = useState(false);
 	const numItems = React.Children.count(props.children);
 
 	const slide = (dir) => {
@@ -26,10 +27,16 @@ const Carousel = (props) => {
 		preventDefaultTouchmoveEvent: true,
 		trackMouse: true,
 	});
+	let timeout;
+	const handleMouseMove = () => {
+		setMove(true);
+		clearTimeout(timeout);
+		timeout = setTimeout(() => setMove(false), 500);
+	};
 
 	return (
 		<div {...handlers} style={{ height: '100%' }}>
-			<Wrapper>
+			<Wrapper onMouseMove={handleMouseMove} move={move}>
 				{/* listen the mouse scroll event */}
 				<ReactScrollWheelHandler
 					upHandler={() => slide(PREV)}
@@ -46,13 +53,9 @@ const Carousel = (props) => {
 							</CarouselSlot>
 						))}
 					</CarouselContainer>
-					<BtnWrapper style={{ left: 0 }}>
-						<ArrowBackIosIcon onClick={() => slide(PREV)} style={{ marginLeft: 20 }} />
-					</BtnWrapper>
-					<BtnWrapper style={{ right: 0 }}>
-						<ArrowForwardIosIcon onClick={() => slide(NEXT)} />
-					</BtnWrapper>
 				</ReactScrollWheelHandler>
+				<ArrowBackIosIcon onClick={() => slide(PREV)} style={{ marginLeft: 10, left: 0 }} />
+				<ArrowForwardIosIcon onClick={() => slide(NEXT)} style={{ right: 0 }} />
 			</Wrapper>
 		</div>
 	);
