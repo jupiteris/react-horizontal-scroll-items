@@ -28,7 +28,6 @@ export const CarouselContainer = styled.div`
 `;
 
 export const Wrapper = styled.div`
-	// position: relative;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
@@ -51,7 +50,7 @@ export const Wrapper = styled.div`
 	}
 	@media (max-width: 568px) {
 		svg {
-			opacity: 0;
+			opacity: 0 !important;
 		}
 	}
 `;
