@@ -18,21 +18,29 @@ export const Item = styled.div`
 
 export const BtnWrapper = styled.div`
 	position: absolute;
-	width: 60px;
+	width: 40px;
 	top: 25%;
 	height: 50%;
 	display: flex;
-	justify-content: flex-end;
 	align-items: center;
+	justify-content: center;
 	svg {
 		color: #ffe600;
 		height: 40px;
 		width: 40px;
-		opacity: 0.3;
+		opacity: 0;
 	}
 	:hover {
 		svg {
-			opacity: 1;
+			opacity: 0.5;
+			:hover {
+				opacity: 1;
+			}
+		}
+	}
+	@media (max-width: 568px) {
+		svg {
+			opacity: 0;
 		}
 	}
 `;

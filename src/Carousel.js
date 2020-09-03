@@ -47,7 +47,7 @@ const Carousel = (props) => {
 						))}
 					</CarouselContainer>
 					<BtnWrapper style={{ left: 0 }}>
-						<ArrowBackIosIcon onClick={() => slide(PREV)} />
+						<ArrowBackIosIcon onClick={() => slide(PREV)} style={{ marginLeft: 20 }} />
 					</BtnWrapper>
 					<BtnWrapper style={{ right: 0 }}>
 						<ArrowForwardIosIcon onClick={() => slide(NEXT)} />
