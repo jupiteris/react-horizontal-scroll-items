@@ -85,13 +85,6 @@ function Project({ name, content, reversed, position }) {
 		setShow(false);
 	};
 
-	// const [stableShow, setStabelShow] = useState(false);
-	// const handleStableShow = (e) => {
-	// 	stopCrashEvent(e);
-	// 	setStabelShow(!stableShow);
-	// 	setShow(false);
-	// };
-
 	return (
 		<div style={{ ...position }} className='item'>
 			<div
@@ -99,7 +92,6 @@ function Project({ name, content, reversed, position }) {
 				className='name'
 				onMouseEnter={handleShow}
 				onMouseLeave={handleClose}
-				// onClick={handleStableShow}
 			>
 				{name}
 			</div>
@@ -126,17 +118,12 @@ function App() {
 							<Item desktopImg={desktopImg} mobileImg={mobileImg} key={index}>
 								{/* top header */}
 								<Project name={header} content={text} position={{ top: 0, left: 0 }} />
-								{/* bottom header */}
-								<Project
-									name='Untold Garden'
-									content={aboutUs}
-									position={{ bottom: 0, right: 0 }}
-									reversed
-								/>
 							</Item>
 						);
 					})}
 			</Carousel>
+			{/* bottom header */}
+			<Project name='Untold Garden' content={aboutUs} position={{ bottom: 0, right: 0 }} reversed />
 		</AppContainer>
 	);
 }

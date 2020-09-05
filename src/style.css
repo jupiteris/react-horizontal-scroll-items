@@ -3,7 +3,6 @@ body,
 #root {
 	height: 100%;
 }
-
 .item {
 	display: flex;
 	flex-flow: column;
@@ -11,26 +10,22 @@ body,
 	width: 25%;
 	padding: 20px;
 }
-
 .name {
 	color: #ffe600;
-	font-family: 'Roboto Mono';
+	font-family: 'Roboto Mono' monospace;
 	font-size: 33px;
 	font-weight: 600;
 }
-
 .content {
 	color: #ffe600;
 	font-family: 'Myriad';
 	text-align: left;
 	padding: 10px 0px;
 }
-
 .item a {
 	color: #ffe600;
 	text-decoration: none;
 }
-
 @media only screen and (max-width: 568px) {
 	.item {
 		width: 80%;
