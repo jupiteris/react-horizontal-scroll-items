@@ -61,10 +61,11 @@ const projects = [
 ];
 
 const aboutUs = `
-	<a href="mailto:studio@untold.garden" target="_top">studio@untold.garden</a><br/><br/>
-	Untold Garden builds tools to explore intersections and feedback loops between virtual and physical worlds, 
-	through mixed reality interfaces and processes for decentralized decision-making. 
-	We are a design collective by Max Čelar and Jakob Skote. 
+	To chat on outside of freelancer.com is violated by policy. it is not very good for my account if i reply on your ask. So this is why I did not reply properly. 
+	in bad case, my account can be closed if i share my address on chat. so Hope you understand. 
+	I use skype/telegram now. but telegram is broken in some reason at the moment, skype is also good for communication.
+	Can you find me using this address? "live:.cid.ac8d38856bbdf827". it is easy to install skype. please find me and send message. 
+	I will reply. I think that telegram can be available in some days. Thanks.
 `;
 
 function Project({ name, content, reversed, position }) {
@@ -123,7 +124,7 @@ function App() {
 					})}
 			</Carousel>
 			{/* bottom header */}
-			<Project name='Untold Garden' content={aboutUs} position={{ bottom: 0, right: 0 }} reversed />
+			<Project name={aboutUs} position={{ bottom: 0, right: 0 }} reversed />
 		</AppContainer>
 	);
 }
