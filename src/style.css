@@ -7,13 +7,13 @@ body,
 	display: flex;
 	flex-flow: column;
 	position: absolute;
-	width: 50%;
+	width: 25%;
 	padding: 20px;
 }
 .name {
-	color: red;
+	color: #ffe600;
 	font-family: 'Roboto Mono' monospace;
-	font-size: 14px;
+	font-size: 33px;
 	font-weight: 600;
 }
 .content {
